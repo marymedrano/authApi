@@ -17,5 +17,7 @@ var router = (0, _express.Router)();
 router.post('/signup', _user.signUp);
 router.post('/signin', _user.signIn);
 router.post('/', _validateJWT["default"], _user.renewUserToken);
+router.put('/updateUser', _user.updateUser);
+router.get('/getUser', _user.getUser);
 var _default = router;
 exports["default"] = _default;

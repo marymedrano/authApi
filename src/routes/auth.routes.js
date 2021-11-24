@@ -9,7 +9,7 @@ router.post('/signup', signUp);
 router.post('/signin', signIn);
 
 router.post('/', validateJWT, renewUserToken);
-router.put('/updateUser',validateJWT, updateUser);
-router.get('/getUser',validateJWT,getUser)
+router.put('/updateUser',updateUser);
+router.get('/getUser',getUser)
 
 export default router;

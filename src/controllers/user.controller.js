@@ -56,14 +56,16 @@ export const signIn = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-    const Users = await User.findById(id);
-    res.status(200).json(Users);
+    // const Users = await User.findById(id);
+    // res.status(200).json(Users);
+    const users= await User.find();
+    res.json(users)
   };
 
 export const updateUser = async (req, res) => {
     //update data by id field
     const updated = await User.findByIdAndUpdate(
-      req.params.id,
+      req.params.email,
       req.body,
       {
         new: true,
