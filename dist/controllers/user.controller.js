@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renewUserToken = exports.updateUser = exports.getUser = exports.signIn = exports.signUp = void 0;
+exports.renewUserToken = exports.getUser = exports.signIn = exports.signUp = void 0;
 
 require("regenerator-runtime/runtime");
 
@@ -206,27 +206,33 @@ var getUser = /*#__PURE__*/function () {
   return function getUser(_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
-}();
+}(); // export const updateUser = async (req, res) => {
+//     //update data by id field
+//     const updated = await User.findByIdAndUpdate(
+//       req.params.email,
+//       req.body,
+//       {
+//         new: true,
+//       }
+//     );
+//     res.status(200).json(updated);
+//   };
+
 
 exports.getUser = getUser;
 
-var updateUser = /*#__PURE__*/function () {
+var renewUserToken = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var updated;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _context4.next = 2;
-            return _User["default"].findByIdAndUpdate(req.params.email, req.body, {
-              "new": true
-            });
+            return _context4.abrupt("return", res.status(200).json({
+              role: req.user.role,
+              token: createToken(req.user)
+            }));
 
-          case 2:
-            updated = _context4.sent;
-            res.status(200).json(updated);
-
-          case 4:
+          case 1:
           case "end":
             return _context4.stop();
         }
@@ -234,34 +240,8 @@ var updateUser = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function updateUser(_x7, _x8) {
+  return function renewUserToken(_x7, _x8) {
     return _ref4.apply(this, arguments);
-  };
-}();
-
-exports.updateUser = updateUser;
-
-var renewUserToken = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
-    return regeneratorRuntime.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            return _context5.abrupt("return", res.status(200).json({
-              role: req.user.role,
-              token: createToken(req.user)
-            }));
-
-          case 1:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5);
-  }));
-
-  return function renewUserToken(_x9, _x10) {
-    return _ref5.apply(this, arguments);
   };
 }();
 

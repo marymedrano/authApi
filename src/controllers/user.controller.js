@@ -62,17 +62,17 @@ export const getUser = async (req, res) => {
     res.json(users)
   };
 
-export const updateUser = async (req, res) => {
-    //update data by id field
-    const updated = await User.findByIdAndUpdate(
-      req.params.email,
-      req.body,
-      {
-        new: true,
-      }
-    );
-    res.status(200).json(updated);
-  };
+// export const updateUser = async (req, res) => {
+//     //update data by id field
+//     const updated = await User.findByIdAndUpdate(
+//       req.params.email,
+//       req.body,
+//       {
+//         new: true,
+//       }
+//     );
+//     res.status(200).json(updated);
+//   };
 
 
 export const renewUserToken = async (req, res) => {
