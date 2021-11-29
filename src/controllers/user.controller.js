@@ -62,6 +62,54 @@ export const getUser = async (req, res) => {
     res.json(users)
   };
 
+
+
+
+export const updateUser = async (req, res = response) => {
+
+    try {
+
+        const userDB = await User.findOne({email: req.body.email});
+        if (!userDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'user email not found'
+            });
+        }
+
+        const { Habilitado, Propios, Terceros } = req.body.loan;            
+        //modify directly
+        userDB.permissions.loan = {
+            Habilitado,Propios,Terceros
+        };
+
+        // const update = {
+        //     loan:{
+        //         p1,p2,p3
+        //     }
+        // }
+        const Character = mongoose.model('User', new mongoose.Schema({       
+          
+        }));
+
+        const filter = {email:req.params?.email}
+        const userUpdate = await Character.findOneAnUpdate(filter,userDB,{
+            new:true
+        });        
+
+        res.json({
+            ok: true,
+            userUpdate
+        });
+
+    } catch (error) {        
+        res.status({
+            ok: false,
+            msg: "error update"
+        });
+    }
+}
+
 // export const updateUser = async (req, res) => {
 //     //update data by id field
 //     const updated = await User.findByIdAndUpdate(
