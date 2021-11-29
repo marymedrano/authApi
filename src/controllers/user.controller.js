@@ -82,18 +82,16 @@ export const updateUser = async (req, res = response) => {
         userDB.permissions.loan = {
             Habilitado,Propios,Terceros
         };
-
-        // const update = {
-        //     loan:{
-        //         p1,p2,p3
-        //     }
-        // }
-        const Character = mongoose.model('User', new mongoose.Schema({       
-          
+        const update = {
+            permissions:userDB.permissions
+        }
+        const Character = mongoose.model('Character', new mongoose.Schema({       
+            email:String,
+            permissions:_mongoose.Schema.Types.Mixed                
         }));
 
         const filter = {email:req.params?.email}
-        const userUpdate = await Character.findOneAnUpdate(filter,userDB,{
+        const userUpdate = await Character.findOneAnUpdate(filter,update,{
             new:true
         });        
 
