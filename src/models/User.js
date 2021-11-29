@@ -29,10 +29,6 @@ const userSchema = new Schema({
         permissions: {
             type: Schema.Types.Mixed,
             require: true
-        },
-        loan:{
-            type: Schema.Types.Mixed,
-            require: false
         }
     },
     date: {
