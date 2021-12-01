@@ -10,6 +10,6 @@ router.post('/signin', signIn);
 
 router.post('/', validateJWT, renewUserToken);
 //  router.put('/updateUser',updateUser);
-router.get('/getUser',getUser)
+// router.get('/getUser',getUser)
 
 export default router;

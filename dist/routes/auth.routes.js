@@ -18,6 +18,6 @@ router.post('/signup', _user.signUp);
 router.post('/signin', _user.signIn);
 router.post('/', _validateJWT["default"], _user.renewUserToken); //  router.put('/updateUser',updateUser);
 
-router.get('/getUser', _user.getUser);
+// router.get('/getUser', _user.getUser);
 var _default = router;
 exports["default"] = _default;
