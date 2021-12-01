@@ -2,7 +2,7 @@ import 'regenerator-runtime/runtime'
 import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { registerValidation, loginValidation } from '../helpers/validation';
+import { registerValidation, loginValidation, } from '../helpers/validation';
 
 function createToken(user){
     return jwt.sign({id: user._id}, process.env.TOKEN_SECRET, {
@@ -62,13 +62,9 @@ export const getUser = async (req, res) => {
     res.json(users)
   };
 
-
-
-
-export const updateUser = async (req, res = response) => {
+export const updateUser = async (req, res) => {
 
     try {
-
         const userDB = await User.findOne({email: req.body.email});
         if (!userDB) {
             return res.status(404).json({
@@ -99,7 +95,7 @@ export const updateUser = async (req, res = response) => {
             ok: true,
             userUpdate
         });
-
+        console.log(userUpdate);
     } catch (error) {        
         res.status({
             ok: false,
