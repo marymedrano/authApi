@@ -55,12 +55,10 @@ export const signIn = async (req, res) => {
     return res.status(200).json({role: user.role, token: createToken(user)});
 }
 
-// export const getUser = async (req, res) => {
-//     // const Users = await User.findById(id);
-//     // res.status(200).json(Users);
-//     const users= await User.find();
-//     res.json(users)
-//   };
+export const getUser = async (req, res) => {
+    const users= await User.find();
+    res.json(users)
+  };
 
 // export const updateUser = async (req, res) => {
 
