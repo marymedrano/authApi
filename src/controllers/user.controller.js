@@ -60,47 +60,47 @@ export const getUser = async (req, res) => {
     res.json(users)
   };
 
-export const updateUser = async (req, res) => {
+// export const updateUser = async (req, res) => {
 
-    try {
-        const userDB = await User.findOne({email: req.body.email});
-        if (!userDB) {
-            return res.status(404).json({
-                ok: false,
-                msg: 'user email not found'
-            });
-        }
+//     try {
+//         const userDB = await User.findOne({email: req.body.email});
+//         if (!userDB) {
+//             return res.status(404).json({
+//                 ok: false,
+//                 msg: 'user email not found'
+//             });
+//         }
 
-        const { Habilitado, Propios, Terceros } = req.body.loan;            
-        //modify directly
-        userDB.permissions.loan = {
-            Habilitado,Propios,Terceros
-        };
-        const update = {
-            permissions:userDB.permissions
-        }
-        const Character = mongoose.model('Character', new mongoose.Schema({       
-            email:String,
-            permissions:_mongoose.Schema.Types.Mixed                
-        }));
+//         const { Habilitado, Propios, Terceros } = req.body.loan;            
+//         //modify directly
+//         userDB.permissions.loan = {
+//             Habilitado,Propios,Terceros
+//         };
+//         const update = {
+//             permissions:userDB.permissions
+//         }
+//         const Character = mongoose.model('Character', new mongoose.Schema({       
+//             email:String,
+//             permissions:_mongoose.Schema.Types.Mixed                
+//         }));
 
-        const filter = {email:req.params?.email}
-        const userUpdate = await Character.findOneAnUpdate(filter,update,{
-            new:true
-        });        
+//         const filter = {email:req.params?.email}
+//         const userUpdate = await Character.findOneAnUpdate(filter,update,{
+//             new:true
+//         });        
 
-        res.json({
-            ok: true,
-            userUpdate
-        });
-        console.log(userUpdate);
-    } catch (error) {        
-        res.status({
-            ok: false,
-            msg: "error update"
-        });
-    }
-}
+//         res.json({
+//             ok: true,
+//             userUpdate
+//         });
+//         console.log(userUpdate);
+//     } catch (error) {        
+//         res.status({
+//             ok: false,
+//             msg: "error update"
+//         });
+//     }
+// }
 
 export const renewUserToken = async (req, res) => {
     return res.status(200).json({role: req.user.role, token: createToken(req.user)});
