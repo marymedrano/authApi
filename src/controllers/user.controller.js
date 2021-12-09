@@ -60,47 +60,41 @@ export const getUser = async (req, res) => {
     res.json(users)
   };
 
-// export const updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
+    try {        
+        // const updateUser = await User.findByIdAndUpdate(req.body.email,req.body,{
+        //     new:true
+        // });
+        // return res.status(200).json(updateUser);
+        const userDB = await User.findOne({email: req.body.email});
+        if (!userDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'user email not found'
+            });
+        }        
+        userDB.role.permissions.Prestamos = req.body.loan;
+        
+        const update = {
+            role:userDB.role
+        }
+        const Character = mongoose.model('User', new mongoose.Schema({       
+            email:String,
+            role:_mongoose.Schema.Types.Mixed                
+        }));
 
-//     try {
-//         const userDB = await User.findOne({email: req.body.email});
-//         if (!userDB) {
-//             return res.status(404).json({
-//                 ok: false,
-//                 msg: 'user email not found'
-//             });
-//         }
+        const filter = {email:req.params?.email}
+        const userUpdate = await Character.findOneAnUpdate(filter,update,{
+            new:true
+        });        
 
-//         const { Habilitado, Propios, Terceros } = req.body.loan;            
-//         //modify directly
-//         userDB.permissions.loan = {
-//             Habilitado,Propios,Terceros
-//         };
-//         const update = {
-//             permissions:userDB.permissions
-//         }
-//         const Character = mongoose.model('Character', new mongoose.Schema({       
-//             email:String,
-//             permissions:_mongoose.Schema.Types.Mixed                
-//         }));
-
-//         const filter = {email:req.params?.email}
-//         const userUpdate = await Character.findOneAnUpdate(filter,update,{
-//             new:true
-//         });        
-
-//         res.json({
-//             ok: true,
-//             userUpdate
-//         });
-//         console.log(userUpdate);
-//     } catch (error) {        
-//         res.status({
-//             ok: false,
-//             msg: "error update"
-//         });
-//     }
-// }
+    } catch (error) {        
+        res.status({
+            ok: false,
+            msg: `${error} error update`
+        });
+    }
+}
 
 export const renewUserToken = async (req, res) => {
     return res.status(200).json({role: req.user.role, token: createToken(req.user)});
