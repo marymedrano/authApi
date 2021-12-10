@@ -1,5 +1,10 @@
 import { Schema, model, SchemaTypes } from 'mongoose';
 
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+mongoose.Promise = global.Promise;
+
 const userSchema = new Schema({
     name: {
         type: String,
@@ -36,5 +41,5 @@ const userSchema = new Schema({
         default: Date.now
     }
 });
-
-export default model('User', userSchema);
+module.exports = mongoose.models.userSchema || mongoose.model('User', userSchema);
+ export default model('User', userSchema);

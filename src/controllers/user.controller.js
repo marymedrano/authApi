@@ -3,6 +3,8 @@ import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { registerValidation, loginValidation, } from '../helpers/validation';
+import { Schema, model, SchemaTypes } from 'mongoose';
+
 
 function createToken(user){
     return jwt.sign({id: user._id}, process.env.TOKEN_SECRET, {
@@ -61,11 +63,10 @@ export const getUser = async (req, res) => {
   };
 
 export const updateUser = async (req, res) => {
+
+    var mongoose = require('mongoose');
+    
     try {        
-        // const updateUser = await User.findByIdAndUpdate(req.body.email,req.body,{
-        //     new:true
-        // });
-        // return res.status(200).json(updateUser);
         const userDB = await User.findOne({email: req.body.email});
         if (!userDB) {
             return res.status(404).json({
@@ -80,7 +81,7 @@ export const updateUser = async (req, res) => {
         }
         const Character = mongoose.model('User', new mongoose.Schema({       
             email:String,
-            role:_mongoose.Schema.Types.Mixed                
+            role:mongoose.Schema.Types.Mixed                
         }));
 
         const filter = {email:req.params?.email}
@@ -89,7 +90,7 @@ export const updateUser = async (req, res) => {
         });        
 
     } catch (error) {        
-        res.status({
+        res.json({
             ok: false,
             msg: `${error} error update`
         });
