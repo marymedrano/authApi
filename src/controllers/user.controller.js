@@ -71,16 +71,15 @@ export const updateUser = async (req, res) => {
       { email: req.body.email },
       { role: { permissions: { Prestamos: req.body.loan } } },
       (err, result) => {
-        console.log(err, result);
         if (err) {
-          res.send(err);
+          res.status(400).send(err);
         } else if (!err && !result) {
           res.status(400).json({
             ok: false,
             msg: `Error update`,
           });
         } else {
-          res.send(result);
+          res.status(200).send(result);
         }
       }
     );
